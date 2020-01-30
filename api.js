@@ -6,6 +6,7 @@ const DATA_LIMIT = 20;
 
 router.get(`/users`, async (req, res) => {
   res.contentType("application/json");
+  await UserTable.createTableIfNotExists();
   const users = await UserTable.list(0, DATA_LIMIT);
   setTimeout(() => res.status(200).json({ users }), 1000);
 });
