@@ -86,6 +86,7 @@ export default class UserTable {
         order by id limit ${limit} offset ${offset}`,
           (err, rows) => {
             if (err) reject(err);
+            rows = rows || [];
             rows.forEach(row => {
               result.push(new User(row["id"], row["name"], row["email"]));
             });
