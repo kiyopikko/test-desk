@@ -5,7 +5,7 @@ let database;
 
 export class DBCommon {
   static init() {
-    database = new sqlite3.Database("user.sqlite3");
+    database = new sqlite3.Database("./app/user.sqlite3");
   }
   static get() {
     return database;
