@@ -1,25 +1,35 @@
-const http = require('http');
-const static = require('node-static');
-const port = 80;
+const express = require("express");
+const bodyParser = require("body-parser");
+const apiRouter = require("./api");
 
-const fileServer = new static.Server('./public');
-const requestHandler = (request, response) => {
-    console.log(request.url);
-    request.addListener('end', function () {
-        fileServer.serve(request, response, function (e, res) {
-            if (e && (e.status === 404)) { // If the file wasn't found
-                 fileServer.serveFile('/404.html', 404, {}, request, response);
-            }
-        });
-    }).resume();
-}
+const app = express();
+const PORT = 3000;
+const API_PREFIX = "/v1";
 
-const server = http.createServer(requestHandler)
-
-server.listen(port, (err) => {
-    if (err) {
-        return console.log('something bad happened', err);
-    }
-
-    console.log(`server is listening on ${port}`);
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3001");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
 });
+
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
+app.use(bodyParser.json());
+app.use(API_PREFIX, apiRouter);
+
+app.listen(PORT, err => {
+  if (err) {
+    console.log(err);
+  }
+  console.log(`server start at port ${PORT}`);
+});
+
+module.exports = app;
