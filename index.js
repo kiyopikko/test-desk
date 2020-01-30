@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const apiRouter = require("./api");
 
 const app = express();
-const PORT = 3000;
+const PORT = 80;
 const API_PREFIX = "/v1";
 
 app.use(function(req, res, next) {
