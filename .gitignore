@@ -13,3 +13,6 @@ npm-debug.log
 # divio cloud
 .aldryn
 migrate.sh
+
+# sqlite
+*.sqlite3
