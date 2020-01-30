@@ -14,7 +14,11 @@ router.get(`/users`, async (req, res) => {
 router.get("/users/:userId", async (req, res) => {
   res.contentType("application/json");
   await UserTable.createTableIfNotExists();
-  const user = new User(`id${i}`, `name${i}`, `aaa${i}@bbb.ccc`);
+  const user = new User(
+    `id${req.params.userId}`,
+    `name${req.params.userId}`,
+    `aaa${req.params.userId}@bbb.ccc`
+  );
   await UserTable.save(user);
   setTimeout(() => res.status(200).json({ user }), 1000);
 });
