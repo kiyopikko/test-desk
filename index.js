@@ -31,5 +31,3 @@ app.listen(PORT, err => {
   }
   console.log(`server start at port ${PORT}`);
 });
-
-module.exports = app;
